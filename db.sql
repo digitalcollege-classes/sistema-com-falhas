@@ -10,14 +10,14 @@ USE db_contatinhos;
 -- Criar uma tabela banco de dados --
 CREATE TABLE tb_contatos (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NULL,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NULL,
     telefone VARCHAR(20) NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS tb_usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     criado_em DATETIME NOT NULL, 
