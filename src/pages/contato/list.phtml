@@ -1,0 +1,90 @@
+<section class="card card-body shadow">
+    <h1>Listar</h1>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    //ele traz a variavel $pdo pra ca
+                    include '../src/conexao.php';
+
+                    $id = $_SESSION['user']['id'];
+
+                    $resultado = $pdo->query("SELECT * FROM tb_contatos WHERE usuario_id='{$id}'");
+
+                    $dados = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($dados as $cada) {
+                        $id = $cada['id'];
+
+                        $json = json_encode($cada);
+
+                        echo "
+                            <tr>
+                                <td>{$cada['nome']}</td>
+                                <td>{$cada['email']}</td>
+                                <td>{$cada['telefone']}</td>
+                                <td class='text-center'>
+                                    <div class='btn-group' role='group' aria-label='Basic mixed styles example'>
+                                        <button type='button' onclick='editar({$json})'  data-bs-target='#editarContato' class='btn btn-warning'>Editar</button>
+                                        <button type='button' onclick='confirmar(this)' href='/contatos/excluir?id={$id}'  class='btn btn-danger'>Excluir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    
+</section>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="editarContato" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasLabel">Editar Contato</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="/contatos/editar" method="post">
+            <label for="name">Nome</label>
+            <input name="name" type="text" id="name" class="form-control mb-2" placeholder="Digite aqui">
+            
+            <label for="email">Email</label>
+            <input name="email" type="text" id="email" class="form-control mb-2" placeholder="Digite aqui">
+            
+            <label for="phone">Telefone</label>
+            <input name="phone" type="text" id="phone" class="form-control mb-3" placeholder="Digite aqui">
+
+            <input type="hidden" id="contact_id" name="id">
+            <button class="btn btn-primary w-100">PRONTO</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function editar(dados) {
+        document.getElementById('name').value = dados.nome;
+        document.getElementById('phone').value = dados.telefone;
+        document.getElementById('email').value = dados.email;
+        document.getElementById('contact_id').value = dados.id;
+    }
+
+    function confirmar(event) {
+        if (false === confirm("Tem certeza?")) {
+            return;
+        }
+
+        location.href = event.getAttribute('href');
+    }
+</script>
+

@@ -1,0 +1,33 @@
+<section class="card card-body shadow">
+
+    <h1>Bem vindo</h1> 
+
+    <?php 
+// Conectar ao banco de dados
+include '../src/conexao.php';
+
+if (false === hasLoggedUser()) {
+    header('location: /login');
+}
+
+$id = $_SESSION['user']['id'];
+
+// Consulta para contar os contatos do usuário
+$resultado = $pdo->query("SELECT COUNT(*) AS total FROM tb_contatos WHERE usuario_id = '{$id}'");
+
+$dados = $resultado->fetch(PDO::FETCH_ASSOC);
+$contatos = $dados['total'];
+?>
+
+<section class="card card-body shadow">
+    <h1>Bem-vindo</h1>
+
+    <div class="alert alert-primary d-flex align-items-center" role="alert">
+        <div>
+            Seus contatos são: <?php echo $contatos ?>
+        </div>
+    </div>
+</section>
+
+
+</section>

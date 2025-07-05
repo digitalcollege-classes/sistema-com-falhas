@@ -1,0 +1,17 @@
+// Sintaxe
+    // Variaveis
+    // Constantes
+// Tipos
+    Inteiros
+    Flutuantes
+    Booleanos
+    Strings
+// Estrutura de Dados
+    Arrays
+    Arrays Associativos
+// Estruturas de Controle
+    IF/ELSE
+    FOR
+    FOREACH
+    
+

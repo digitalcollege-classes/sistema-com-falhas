@@ -1,0 +1,68 @@
+<?php
+    $id = $_SESSION['user']['id'];
+
+    if (false === empty($_POST)) {
+        //recebendo os dados que vieram do form do HTML
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+
+        $sql = "
+            INSERT INTO tb_contatos (nome, email, telefone, usuario_id)
+            VALUES ('{$name}', '{$email}', '{$phone}', '{$id}');
+        ";
+
+        include '../src/conexao.php';
+
+        // // bind
+        $pdo->query($sql);
+
+
+        echo "<div class='alert alert-success'>
+            <strong>Pronto!</strong>
+            Novo contatinho inserido 😈 🔥<br>
+            <em>{$name}</em>
+        </div>";
+    }   
+?>
+
+<section class="card card-body shadow">
+    <h2> 
+        <i class="material-icons fs-2">person_add</i>
+        Cadastro
+    </h2>
+
+    <div class="row my-3 pt-5 align-items-center">
+        <div class="col">
+            <img src="/img/add.svg" width="80%" alt="">
+        </div>
+        <div class="col">
+            <form action="" method="post">
+                <label for="name">Nome</label>
+                <input required name="name" type="text" id="name" class="form-control mb-2" placeholder="Digite aqui">
+                
+                <label for="email">Email</label>
+                <input required  name="email" type="text" id="email" class="form-control mb-2" placeholder="Digite aqui">
+                
+                <label for="phone">Telefone</label>
+                <input required name="phone" type="number" id="phone" class="form-control mb-3" placeholder="Digite aqui">
+
+                <button class="btn btn-primary w-100">PRONTO</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+       document.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", function (){
+            this.value= this.value.replace(/\s/g, ""); 
+        });
+       });
+
+        
+            
+    
+            
+    </script>
+
+</section>

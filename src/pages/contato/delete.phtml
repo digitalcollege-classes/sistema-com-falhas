@@ -1,0 +1,16 @@
+<?php
+
+include '../src/conexao.php';
+
+//pegar a info da URL
+$id = $_POST['id'];
+
+$pdo->query("DELETE FROM tb_contatos WHERE id='{$id}';");
+
+?>
+
+<div class="alert alert-success">
+    <strong>PRONTO!</strong>
+    O Contatinho foi excluido 😡
+</div>
+
